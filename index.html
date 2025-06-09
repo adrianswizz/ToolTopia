@@ -1,0 +1,420 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utility Hub</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-tools"></i> Utility Hub</h1>
+            <button class="settings-btn" onclick="openSettings()">
+                <i class="fas fa-cog"></i>
+            </button>
+        </header>
+
+        <nav class="tab-nav">
+            <button class="tab-btn active" onclick="showTab('home')">
+                <i class="fas fa-home"></i> Home
+            </button>
+            <button class="tab-btn" onclick="showTab('calculator')">
+                <i class="fas fa-calculator"></i> Calculator
+            </button>
+            <button class="tab-btn" onclick="showTab('notes')">
+                <i class="fas fa-sticky-note"></i> Notes
+            </button>
+            <button class="tab-btn" onclick="showTab('converter')">
+                <i class="fas fa-exchange-alt"></i> Unit Converter
+            </button>
+            <button class="tab-btn" onclick="showTab('password')">
+                <i class="fas fa-key"></i> Password Generator
+            </button>
+            <button class="tab-btn" onclick="showTab('qr')">
+                <i class="fas fa-qrcode"></i> QR Code
+            </button>
+            <button class="tab-btn" onclick="showTab('games')">
+                <i class="fas fa-gamepad"></i> Games
+            </button>
+            <button class="tab-btn" onclick="showTab('tools')">
+                <i class="fas fa-wrench"></i> Tools
+            </button>
+        </nav>
+
+        <main class="tab-content">
+            <!-- Home Tab -->
+            <div id="home" class="tab active">
+                <div class="welcome-container">
+                    <div class="welcome-hero">
+                        <div class="welcome-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h1 class="welcome-title">Welcome to Utility Hub</h1>
+                        <p class="welcome-subtitle">Your all-in-one productivity toolkit</p>
+                        <div class="welcome-features">
+                            <div class="feature-card" onclick="showTab('calculator')">
+                                <i class="fas fa-calculator"></i>
+                                <h3>Calculator</h3>
+                                <p>Scientific calculator with advanced functions</p>
+                            </div>
+                            <div class="feature-card" onclick="showTab('notes')">
+                                <i class="fas fa-sticky-note"></i>
+                                <h3>Notes</h3>
+                                <p>Rich text editor with image support</p>
+                            </div>
+                            <div class="feature-card" onclick="showTab('converter')">
+                                <i class="fas fa-exchange-alt"></i>
+                                <h3>Unit Converter</h3>
+                                <p>Convert length, weight and more</p>
+                            </div>
+                            <div class="feature-card" onclick="showTab('password')">
+                                <i class="fas fa-key"></i>
+                                <h3>Password Generator</h3>
+                                <p>Generate secure passwords</p>
+                            </div>
+                            <div class="feature-card" onclick="showTab('qr')">
+                                <i class="fas fa-qrcode"></i>
+                                <h3>QR Code</h3>
+                                <p>Generate and scan QR codes</p>
+                            </div>
+                            <div class="feature-card" onclick="showTab('games')">
+                                <i class="fas fa-gamepad"></i>
+                                <h3>Games</h3>
+                                <p>Your personal game library</p>
+                            </div>
+                            <div class="feature-card" onclick="showTab('tools')">
+                                <i class="fas fa-wrench"></i>
+                                <h3>Tools</h3>
+                                <p>Color picker, text counter and more</p>
+                            </div>
+                        </div>
+                        <div class="stats-section">
+                            <div class="stat-item">
+                                <span class="stat-number" id="notes-count">0</span>
+                                <span class="stat-label">Notes</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" id="games-count">0</span>
+                                <span class="stat-label">Games</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" id="visit-count">1</span>
+                                <span class="stat-label">Visits</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculator Tab -->
+            <div id="calculator" class="tab">
+                <div class="calculator">
+                    <div class="calc-display">
+                        <input type="text" id="calc-input" readonly placeholder="0">
+                    </div>
+                    <div class="calc-buttons">
+                        <button onclick="clearCalc()" class="btn-clear">C</button>
+                        <button onclick="deleteLast()" class="btn-clear">⌫</button>
+                        <button onclick="appendToCalc('/')" class="btn-operator">÷</button>
+                        <button onclick="appendToCalc('*')" class="btn-operator">×</button>
+                        
+                        <button onclick="appendToCalc('7')" class="btn-number">7</button>
+                        <button onclick="appendToCalc('8')" class="btn-number">8</button>
+                        <button onclick="appendToCalc('9')" class="btn-number">9</button>
+                        <button onclick="appendToCalc('-')" class="btn-operator">-</button>
+                        
+                        <button onclick="appendToCalc('4')" class="btn-number">4</button>
+                        <button onclick="appendToCalc('5')" class="btn-number">5</button>
+                        <button onclick="appendToCalc('6')" class="btn-number">6</button>
+                        <button onclick="appendToCalc('+')" class="btn-operator">+</button>
+                        
+                        <button onclick="appendToCalc('1')" class="btn-number">1</button>
+                        <button onclick="appendToCalc('2')" class="btn-number">2</button>
+                        <button onclick="appendToCalc('3')" class="btn-number">3</button>
+                        <button onclick="calculateResult()" class="btn-equals" rowspan="2">=</button>
+                        
+                        <button onclick="appendToCalc('0')" class="btn-number span-2">0</button>
+                        <button onclick="appendToCalc('.')" class="btn-number">.</button>
+                    </div>
+                    <div class="scientific-functions">
+                        <button onclick="appendToCalc('Math.sqrt(')" class="btn-function">√</button>
+                        <button onclick="appendToCalc('Math.pow(')" class="btn-function">x²</button>
+                        <button onclick="appendToCalc('Math.sin(')" class="btn-function">sin</button>
+                        <button onclick="appendToCalc('Math.cos(')" class="btn-function">cos</button>
+                        <button onclick="appendToCalc('Math.tan(')" class="btn-function">tan</button>
+                        <button onclick="appendToCalc('Math.log(')" class="btn-function">log</button>
+                        <button onclick="appendToCalc('(')" class="btn-function">(</button>
+                        <button onclick="appendToCalc(')')" class="btn-function">)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes Tab -->
+            <div id="notes" class="tab">
+                <div class="notes-container">
+                    <div class="notes-sidebar">
+                        <button onclick="createNewNote()" class="btn-primary">
+                            <i class="fas fa-plus"></i> New Note
+                        </button>
+                        <div id="notes-list"></div>
+                    </div>
+                    <div class="notes-editor">
+                        <div class="note-header">
+                            <input type="text" id="note-title" placeholder="Note Title" />
+                            <div class="note-controls">
+                                <button onclick="saveNote()"><i class="fas fa-save"></i></button>
+                                <button onclick="deleteNote()"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <div class="editor-toolbar">
+                            <button onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                            <button onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                            <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+                            <input type="file" id="image-upload" accept="image/*" onchange="insertImage()" style="display: none;">
+                            <button onclick="document.getElementById('image-upload').click()"><i class="fas fa-image"></i></button>
+                        </div>
+                        <div id="note-content" contenteditable="true" placeholder="Start typing your note..."></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unit Converter Tab -->
+            <div id="converter" class="tab">
+                <div class="converter-container">
+                    <div class="converter-section">
+                        <h3>Length Converter</h3>
+                        <div class="converter-row">
+                            <input type="number" id="length-input" placeholder="Enter value">
+                            <select id="length-from">
+                                <option value="m">Meters</option>
+                                <option value="km">Kilometers</option>
+                                <option value="cm">Centimeters</option>
+                                <option value="mm">Millimeters</option>
+                                <option value="in">Inches</option>
+                                <option value="ft">Feet</option>
+                                <option value="yd">Yards</option>
+                                <option value="mi">Miles</option>
+                            </select>
+                            <span>to</span>
+                            <select id="length-to">
+                                <option value="ft">Feet</option>
+                                <option value="m">Meters</option>
+                                <option value="km">Kilometers</option>
+                                <option value="cm">Centimeters</option>
+                                <option value="mm">Millimeters</option>
+                                <option value="in">Inches</option>
+                                <option value="yd">Yards</option>
+                                <option value="mi">Miles</option>
+                            </select>
+                        </div>
+                        <div class="result">
+                            <span id="length-result">0</span>
+                        </div>
+                    </div>
+
+                    <div class="converter-section">
+                        <h3>Weight Converter</h3>
+                        <div class="converter-row">
+                            <input type="number" id="weight-input" placeholder="Enter value">
+                            <select id="weight-from">
+                                <option value="kg">Kilograms</option>
+                                <option value="g">Grams</option>
+                                <option value="lb">Pounds</option>
+                                <option value="oz">Ounces</option>
+                                <option value="t">Tonnes</option>
+                                <option value="st">Stones</option>
+                            </select>
+                            <span>to</span>
+                            <select id="weight-to">
+                                <option value="lb">Pounds</option>
+                                <option value="kg">Kilograms</option>
+                                <option value="g">Grams</option>
+                                <option value="oz">Ounces</option>
+                                <option value="t">Tonnes</option>
+                                <option value="st">Stones</option>
+                            </select>
+                        </div>
+                        <div class="result">
+                            <span id="weight-result">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Password Generator Tab -->
+            <div id="password" class="tab">
+                <div class="password-generator">
+                    <h3>Password Generator</h3>
+                    <div class="password-options">
+                        <label>
+                            Length: <input type="range" id="password-length" min="4" max="100" value="12">
+                            <span id="length-display">12</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" id="include-uppercase" checked> Uppercase Letters
+                        </label>
+                        <label>
+                            <input type="checkbox" id="include-lowercase" checked> Lowercase Letters
+                        </label>
+                        <label>
+                            <input type="checkbox" id="include-numbers" checked> Numbers
+                        </label>
+                        <label>
+                            <input type="checkbox" id="include-symbols" checked> Symbols
+                        </label>
+                    </div>
+                    <button onclick="generatePassword()" class="btn-primary">Generate Password</button>
+                    <div class="password-result">
+                        <input type="text" id="generated-password" readonly>
+                        <button onclick="copyPassword()"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QR Code Tab -->
+            <div id="qr" class="tab">
+                <div class="qr-container">
+                    <div class="qr-section">
+                        <h3>QR Code Generator</h3>
+                        <textarea id="qr-input" placeholder="Enter text or URL to generate QR code"></textarea>
+                        <button onclick="generateQR()" class="btn-primary">Generate QR Code</button>
+                        <div id="qr-output"></div>
+                    </div>
+                    
+                    <div class="qr-section">
+                        <h3>QR Code Scanner</h3>
+                        <input type="file" id="qr-file" accept="image/*" onchange="scanQRFromFile()">
+                        <button onclick="document.getElementById('qr-file').click()" class="btn-secondary">
+                            <i class="fas fa-upload"></i> Upload Image to Scan
+                        </button>
+                        <div id="qr-scan-result"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Games Tab -->
+            <div id="games" class="tab">
+                <div class="games-container">
+                    <div class="games-header">
+                        <input type="text" id="game-search" placeholder="Search games..." onkeyup="searchGames()">
+                        <button onclick="showAddGameModal()" class="btn-primary">
+                            <i class="fas fa-plus"></i> Add Game
+                        </button>
+                    </div>
+                    <div id="games-grid" class="games-grid"></div>
+                </div>
+            </div>
+
+            <!-- Tools Tab -->
+            <div id="tools" class="tab">
+                <div class="tools-container">
+                    <div class="tool-section">
+                        <h3>Color Picker</h3>
+                        <input type="color" id="color-picker" onchange="updateColorInfo()">
+                        <div id="color-info">
+                            <p>Hex: <span id="hex-value">#000000</span></p>
+                            <p>RGB: <span id="rgb-value">rgb(0, 0, 0)</span></p>
+                        </div>
+                    </div>
+
+                    <div class="tool-section">
+                        <h3>Text Counter</h3>
+                        <textarea id="text-counter-input" placeholder="Enter text to count..." onkeyup="updateTextCount()"></textarea>
+                        <div class="text-stats">
+                            <p>Characters: <span id="char-count">0</span></p>
+                            <p>Words: <span id="word-count">0</span></p>
+                            <p>Lines: <span id="line-count">0</span></p>
+                        </div>
+                    </div>
+
+                    <div class="tool-section">
+                        <h3>Random Generators</h3>
+                        <div class="generator-controls">
+                            <div class="generator-option">
+                                <label>Number Generator</label>
+                                <input type="number" id="num-min" placeholder="Min" value="1">
+                                <input type="number" id="num-max" placeholder="Max" value="100">
+                                <button onclick="generateRandomNumber()">Generate</button>
+                                <span id="random-number-result"></span>
+                            </div>
+                            
+                            <div class="generator-option">
+                                <label>String Generator</label>
+                                <input type="number" id="string-length" placeholder="Length" value="10">
+                                <button onclick="generateRandomString()">Generate</button>
+                                <span id="random-string-result"></span>
+                            </div>
+                            
+                            <div class="generator-option">
+                                <label>UUID Generator</label>
+                                <button onclick="generateUUID()">Generate UUID</button>
+                                <span id="uuid-result"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modals -->
+        <div id="add-game-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeAddGameModal()">&times;</span>
+                <h3>Add New Game</h3>
+                <input type="text" id="game-name" placeholder="Game Name">
+                <input type="url" id="game-url" placeholder="Game URL">
+                <div class="image-input-section">
+                    <input type="url" id="game-image" placeholder="Image URL">
+                    <div class="or-divider">OR</div>
+                    <input type="file" id="game-image-file" accept="image/*" style="display: none;" onchange="handleGameImageUpload()">
+                    <button type="button" onclick="document.getElementById('game-image-file').click()" class="btn-secondary">
+                        <i class="fas fa-upload"></i> Add Photo from Files
+                    </button>
+                    <div id="image-preview" class="image-preview"></div>
+                </div>
+                <button onclick="addGame()" class="btn-primary">Add Game</button>
+            </div>
+        </div>
+
+        <div id="settings-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeSettings()">&times;</span>
+                <h3>Settings</h3>
+                <div class="settings-section">
+                    <h4>Theme</h4>
+                    <select id="theme-selector" onchange="changeTheme()">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="gray">Gray</option>
+                    </select>
+                </div>
+                <div class="settings-section">
+                    <h4>Auto-save Notes</h4>
+                    <label>
+                        <input type="checkbox" id="auto-save" checked> Enable auto-save
+                    </label>
+                </div>
+                <div class="settings-section">
+                    <h4>Calculator</h4>
+                    <label>
+                        <input type="checkbox" id="scientific-mode" checked> Scientific mode
+                    </label>
+                </div>
+                <div class="settings-section">
+                    <h4>Data Management</h4>
+                    <button onclick="exportData()" class="btn-secondary">Export Data</button>
+                    <button onclick="importData()" class="btn-secondary">Import Data</button>
+                    <button onclick="clearAllData()" class="btn-danger">Clear All Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
